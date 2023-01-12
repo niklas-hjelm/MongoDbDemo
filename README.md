@@ -16,11 +16,13 @@ Skriv eller rita, hjälp varandra förstå.
 
 I exempelkoden används Person som datamodell. Ni ska göra detta för följande data:
 
+```
 Car
     string Model
     string Make
     string Color
     int HorsePowers
+```
 
 Återskapa en applikation med samma struktur som exempelapplikationen för Car.
 
