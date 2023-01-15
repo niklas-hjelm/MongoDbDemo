@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System.Collections.ObjectModel;
+using System.Windows;
 using System.Windows.Controls;
 using DataAccess;
 using DataAccess.Models;
@@ -17,6 +18,8 @@ namespace GuiClient
             _peopleManager = new PeopleManager();
             UpdatePeopleView();
         }
+
+        public ObservableCollection<object> Selections { get; set; }
 
         private void People_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
         {

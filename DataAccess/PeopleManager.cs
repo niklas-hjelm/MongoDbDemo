@@ -1,4 +1,5 @@
 ﻿using DataAccess.Models;
+using MongoDB.Bson;
 using MongoDB.Driver;
 
 namespace DataAccess;
@@ -27,68 +28,10 @@ public class PeopleManager : IRepository<Person>
         return _collection.Find(_ => true).ToEnumerable();
     }
 
-    public IEnumerable<Person> GetByName(string firstName, string lastName)
+    public Person GetById(object id)
     {
         return _collection
-            .Find(p =>
-                (!string.IsNullOrEmpty(firstName) && p.FirstName == firstName)
-                && (!string.IsNullOrEmpty(lastName) && p.LastName == lastName))
-            .ToEnumerable();
-    }
-
-    public void UpdateFirstName(object id, string firstName)
-    {
-        var filter = Builders<Person>.Filter.Eq("Id", id);
-        var update = Builders<Person>
-            .Update
-            .Set("FirstName", firstName);
-
-        _collection
-            .FindOneAndUpdate(
-                filter,
-                update,
-                new FindOneAndUpdateOptions<Person, Person>
-                {
-                    IsUpsert = true
-                }
-            );
-    }
-
-    public void UpdateLastName(object id, string lastName)
-    {
-        var filter = Builders<Person>.Filter.Eq("Id", id);
-        var update = Builders<Person>
-            .Update
-            .Set("LastName", lastName);
-
-        _collection
-            .FindOneAndUpdate(
-                filter,
-                update,
-                new FindOneAndUpdateOptions<Person, Person>
-                {
-                    IsUpsert = true
-                }
-            );
-    }
-
-
-    public void UpdateAge(object id, int age)
-    {
-        var filter = Builders<Person>.Filter.Eq("Id", id);
-        var update = Builders<Person>
-            .Update
-            .Set("Age", age);
-
-        _collection
-            .FindOneAndUpdate(
-                filter,
-                update,
-                new FindOneAndUpdateOptions<Person, Person>
-                {
-                    IsUpsert = true
-                }
-            );
+            .Find(p => p.Id == ObjectId.Parse((string)id)).FirstOrDefault();
     }
 
     public void Replace(object id, Person item)
