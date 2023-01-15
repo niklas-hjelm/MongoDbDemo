@@ -12,15 +12,13 @@ namespace GuiClient
     public partial class MainWindow : Window
     {
         private readonly IRepository<Person> _peopleManager;
-        public MainWindow()
+        public MainWindow(IRepository<Person> peopleManager)
         {
             InitializeComponent();
-            _peopleManager = new PeopleManager();
+            _peopleManager = peopleManager;
             UpdatePeopleView();
         }
-
-        public ObservableCollection<object> Selections { get; set; }
-
+        
         private void People_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (People.SelectedItem is Person person)
