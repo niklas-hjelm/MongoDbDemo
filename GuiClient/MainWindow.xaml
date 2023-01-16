@@ -32,7 +32,6 @@
             Grid.Column="1"
             Grid.ColumnSpan="2"
             Margin="5"
-            SelectedItems="{Binding Selections}"
             SelectionChanged="People_OnSelectionChanged" />
         <Grid
             Grid.Row="1"

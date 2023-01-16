@@ -18,9 +18,7 @@ namespace GuiClient
             _peopleManager = new PeopleManager();
             UpdatePeopleView();
         }
-
-        public ObservableCollection<object> Selections { get; set; }
-
+        
         private void People_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (People.SelectedItem is Person person)
