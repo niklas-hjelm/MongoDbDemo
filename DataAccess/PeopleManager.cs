@@ -9,12 +9,10 @@ public class PeopleManager : IRepository<Person>
     private readonly IMongoCollection<Person> _collection;
     public PeopleManager()
     {
-        var hostname = "localhost";
-        var databaseName = "demo";
-        var connectionString = $"mongodb://{hostname}:27017";
+        var settings = MongoClientSettings.FromConnectionString("mongodb+srv://niklas:Apa123@cluster0.j0lyf.mongodb.net/?retryWrites=true&w=majority");
+        var client = new MongoClient(settings);
+        var database = client.GetDatabase("People");
 
-        var client = new MongoClient(connectionString);
-        var database = client.GetDatabase(databaseName);
         _collection = database.GetCollection<Person>("people", new MongoCollectionSettings() { AssignIdOnInsert = true });
     }
 

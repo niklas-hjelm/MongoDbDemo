@@ -11,17 +11,17 @@ namespace GuiClient
     /// </summary>
     public partial class MainWindow : Window
     {
-        private readonly IRepository<Person> _peopleManager;
-        public MainWindow()
+        private readonly IRepository<Human> _peopleManager;
+        public MainWindow(IRepository<Human> peopleManager)
         {
             InitializeComponent();
-            _peopleManager = new PeopleManager();
+            _peopleManager = peopleManager;
             UpdatePeopleView();
         }
         
         private void People_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (People.SelectedItem is Person person)
+            if (People.SelectedItem is Human person)
             {
                 FirstName.Text = person.FirstName;
                 LastName.Text = person.LastName;
@@ -31,7 +31,7 @@ namespace GuiClient
 
         private void AddBtn_Click(object sender, RoutedEventArgs e)
         {
-            var person = new Person()
+            var person = new Human()
             {
                 FirstName = FirstName.Text, 
                 LastName = LastName.Text,
@@ -44,11 +44,11 @@ namespace GuiClient
 
         private void UpdateBtn_Click(object sender, RoutedEventArgs e)
         {
-            if (People.SelectedItem is Person person)
+            if (People.SelectedItem is Human person)
             {
                 if (!string.IsNullOrEmpty(FirstName.Text) && !string.IsNullOrEmpty(LastName.Text) && !string.IsNullOrEmpty(Age.Text))
                 {
-                    var newPerson = new Person()
+                    var newPerson = new Human()
                     {
                         FirstName = FirstName.Text,
                         LastName = LastName.Text,
@@ -63,7 +63,7 @@ namespace GuiClient
 
         private void RemoveBtn_Click(object sender, RoutedEventArgs e)
         {
-            if (People.SelectedItem is Person person)
+            if (People.SelectedItem is Human person)
             {
                 _peopleManager.Delete(person.Id);
             }
